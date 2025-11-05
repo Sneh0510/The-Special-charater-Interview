@@ -1,118 +1,181 @@
 # Complexity Analysis
 
-This document provides Big-O complexity analysis for all functions in the E-Commerce Data Analytics Dashboard.
+## Big-O Analysis for Social Media Network Analyzer Functions
 
-## Notation
-- `n` = number of orders
-- `m` = number of products in an order (average)
-- `p` = total number of unique products
-- `c` = number of customers
-- `k` = number of months in date range
+This document provides detailed time and space complexity analysis for each function in the Social Media Network Analyzer.
 
----
-
-## 1. `getTopSellingProducts(orders, n)`
-
-### Time Complexity: **O(n·m + p log p)**
-- **Iterate through orders:** O(n) - iterate through all orders
-- **Iterate through products in each order:** O(n·m) - for each order, iterate through its products
-- **Aggregate quantities:** O(p) - create/update product quantity map
-- **Sort products:** O(p log p) - sort products by quantity to get top N
-- **Select top N:** O(n) - extract top N products (or O(p) if using heap)
-
-**Optimized approach:** O(n·m + p log n) using a min-heap of size N
-
-### Space Complexity: **O(p)**
-- **Product quantity map:** O(p) - store quantity for each unique product
-- **Sorting overhead:** O(p) - for sorting algorithm
-- **Result array:** O(n) - top N products (where N ≤ p)
+### Notation
+- **V** = Total number of users (vertices) in the network
+- **E** = Total number of edges (friendship connections) in the network
+- **F₁** = Number of friends for userId1
+- **F₂** = Number of friends for userId2
+- **P** = Average number of posts per user
+- **C** = Number of recommendations requested (count parameter)
+- **D** = Maximum depth for path search (maxDepth parameter)
 
 ---
 
-## 2. `calculateRevenueByCategory(orders, products)`
+## 1. `findMutualFriends(userId1, userId2, network)`
 
-### Time Complexity: **O(n·m + p + c log c)**
-- **Build product lookup map:** O(p) - create map of productId → category
-- **Iterate through orders:** O(n) - process each order
-- **Iterate through products in orders:** O(n·m) - for each order, iterate through its products
-- **Calculate revenue by category:** O(n·m) - aggregate revenue by category
-- **Sort categories:** O(c log c) - sort categories (where c = number of categories, typically c << p)
-- **Calculate percentages:** O(c) - calculate percentage of total revenue
+### Time Complexity: **O(F₁ + F₂)**
+- **Best Case:** O(min(F₁, F₂)) when using early termination
+- **Average Case:** O(F₁ + F₂)
+- **Worst Case:** O(F₁ + F₂)
 
-**Note:** If products array is already a map/dictionary, product lookup becomes O(1) instead of O(p)
+**Analysis:**
+- Finding user1 and user2 in the network: O(V) using linear search, or O(1) if using a hash map
+- Creating a Set from user1's friends: O(F₁)
+- Iterating through user2's friends and checking membership: O(F₂)
+- Set lookup is O(1) on average
+- **Optimization:** Using a Set/HashSet for O(1) lookup instead of array includes() which is O(F₁)
 
-### Space Complexity: **O(c + p)**
-- **Product lookup map:** O(p) - map of productId → category
-- **Category revenue map:** O(c) - store revenue per category
-- **Result object:** O(c) - sorted categories with revenue and percentages
+**For large networks (10,000+ users):**
+- Use hash map for O(1) user lookup: O(V) preprocessing, then O(1) per query
+- Use Set data structure for friend lists: O(1) membership testing
 
----
-
-## 3. `findCustomerSegments(customers, orders)`
-
-### Time Complexity: **O(n·m + c)**
-- **Build customer spending map:** O(n·m) - iterate through all orders and products to calculate total spending per customer
-- **Iterate through customers:** O(c) - process each customer to assign segment
-- **Calculate averages:** O(c) - calculate average order value per segment
-
-**Alternative approach:** If using a customer lookup map, O(n·m + c)
-
-### Space Complexity: **O(c)**
-- **Customer spending map:** O(c) - store total spending per customer
-- **Segment arrays:** O(c) - arrays of customer IDs per segment (all customers distributed)
-- **Result object:** O(c) - segments with customer IDs and averages
+### Space Complexity: **O(F₁)**
+- Set storing user1's friends: O(F₁)
+- Result array: O(min(F₁, F₂)) in worst case (when all friends are mutual)
 
 ---
 
-## 4. `getMonthlyTrends(orders, startDate, endDate)`
+## 2. `calculateInfluenceScore(userId, network)`
 
-### Time Complexity: **O(n + k)**
-- **Filter orders by date range:** O(n) - iterate through orders to filter by date
-- **Group by month:** O(n) - iterate through filtered orders and group by month
-- **Calculate monthly aggregates:** O(k) - calculate revenue and order count per month
-- **Handle missing months:** O(k) - fill in months with no orders (if needed)
+### Time Complexity: **O(V + P)**
+- **Best Case:** O(1) if user is found via hash map and has no posts
+- **Average Case:** O(V + P)
+- **Worst Case:** O(V + P)
 
-**Note:** Date parsing and comparison is typically O(1) per operation
+**Analysis:**
+- Finding user in network: O(V) with linear search, or O(1) with hash map
+- Iterating through posts to calculate average likes: O(P)
+- Calculating mutual connections: O(F) where F is the number of friends
+  - For each friend, checking if they're friends with others: O(F × V) in naive approach
+  - Optimized: O(F) if we just count connections
+- All calculations are O(1) after data retrieval
 
-### Space Complexity: **O(k)**
-- **Monthly trends map:** O(k) - store data for each month in range
-- **Result array:** O(k) - array of monthly trend objects
+### Space Complexity: **O(1)**
+- Only storing scalar values (counters, totals)
+- No additional data structures proportional to input size
 
 ---
 
-## 5. `mergeAndDeduplicateProducts(productsArray1, productsArray2)`
+## 3. `findConnectionPath(userId1, userId2, network, maxDepth)`
 
-### Time Complexity: **O(p₁ + p₂)**
-- **Build lookup map from first array:** O(p₁) - create map of productId → product
-- **Process second array:** O(p₂) - iterate through second array
-  - **Check for duplicates:** O(1) - lookup in map
-  - **Resolve conflicts:** O(1) - keep most recent data
-- **Convert map to array:** O(p) - where p = unique products (p ≤ p₁ + p₂)
+### Time Complexity: **O(V + E)**
+- **Best Case:** O(1) if users are direct friends
+- **Average Case:** O(V + E) for BFS up to maxDepth
+- **Worst Case:** O(V + E) when exploring all nodes within maxDepth
 
-**Optimized approach:** O(p₁ + p₂) using hash map for deduplication
+**Analysis:**
+- Uses Breadth-First Search (BFS) to find shortest path
+- Each node is visited at most once: O(V)
+- Each edge is traversed at most once: O(E)
+- maxDepth limits the search, potentially reducing complexity
+- **Total:** O(V + E) where E can be up to O(V²) in dense graphs
 
-### Space Complexity: **O(p)**
-- **Product lookup map:** O(p) - map of productId → product (stores unique products)
-- **Result array:** O(p) - merged and deduplicated product array
+**Optimization Notes:**
+- BFS guarantees shortest path (unweighted graph)
+- Early termination when target is found
+- maxDepth prevents infinite exploration
+
+### Space Complexity: **O(V)**
+- Queue storing nodes to visit: O(V) in worst case
+- Visited set: O(V)
+- Path reconstruction: O(D) where D ≤ maxDepth ≤ V
+
+---
+
+## 4. `recommendFriends(userId, network, count)`
+
+### Time Complexity: **O(V × F_avg + C × log(V))**
+- **Best Case:** O(V × F_avg) when sorting is not needed
+- **Average Case:** O(V × F_avg + V × log(V))
+- **Worst Case:** O(V × F_avg + V × log(V))
+
+**Analysis:**
+- Finding the user: O(V) or O(1) with hash map
+- For each potential friend (V-1 users):
+  - Calculate mutual connections: O(F_avg) where F_avg is average friends per user
+  - Total: O(V × F_avg)
+- Sorting recommendations by score: O(V × log(V))
+- Selecting top C: O(C)
+- **Total:** O(V × F_avg + V × log(V))
+
+**Optimization:**
+- Use priority queue (heap) to get top C: O(V × F_avg + C × log(V))
+- Only calculate scores for potential friends (exclude existing friends)
+
+### Space Complexity: **O(V)**
+- Array storing all potential recommendations: O(V)
+- Priority queue: O(V) in worst case
+- Result array: O(C)
+
+---
+
+## 5. `detectCommunities(network, minSize)`
+
+### Time Complexity: **O(V² × F_avg)**
+- **Best Case:** O(V²) for sparse graphs
+- **Average Case:** O(V² × F_avg)
+- **Worst Case:** O(V² × F_avg) or O(V³) in dense graphs
+
+**Analysis:**
+- This is a community detection problem (similar to finding cliques or connected components)
+- For each user O(V):
+  - Check connections with other users: O(V)
+  - Verify 50% connection threshold: O(F_avg)
+  - Total per user: O(V × F_avg)
+- **Total:** O(V² × F_avg)
+
+**Alternative Approaches:**
+- **Union-Find (Disjoint Set):** O(V × α(V)) where α is inverse Ackermann function (nearly constant)
+- **DFS/BFS approach:** O(V + E) for finding connected components, then filtering
+- **Greedy modularity:** O(V² × log(V)) for more sophisticated community detection
+
+**Note:** The 50% connection threshold requires checking each pair's connection status, which is expensive.
+
+### Space Complexity: **O(V²)**
+- Adjacency matrix (if precomputed): O(V²)
+- Community groups: O(V) in worst case (each user is a community)
+- Visited tracking: O(V)
+
+---
+
+## Overall Network Operations
+
+### Preprocessing Optimization
+If we preprocess the network:
+- **Build adjacency list:** O(V + E)
+- **Build user lookup hash map:** O(V)
+- **Build friend Set for each user:** O(V + E)
+
+**Total preprocessing:** O(V + E)
+
+After preprocessing:
+- User lookup: O(1) instead of O(V)
+- Friend membership check: O(1) instead of O(F)
 
 ---
 
 ## Summary Table
 
-| Function | Time Complexity | Space Complexity | Dominant Factor |
-|----------|----------------|------------------|-----------------|
-| `getTopSellingProducts` | O(n·m + p log p) | O(p) | Sorting products |
-| `calculateRevenueByCategory` | O(n·m + p + c log c) | O(c + p) | Order iteration |
-| `findCustomerSegments` | O(n·m + c) | O(c) | Order processing |
-| `getMonthlyTrends` | O(n + k) | O(k) | Order filtering |
-| `mergeAndDeduplicateProducts` | O(p₁ + p₂) | O(p) | Array processing |
+| Function | Time Complexity | Space Complexity | Optimization Priority |
+|----------|----------------|------------------|----------------------|
+| `findMutualFriends` | O(F₁ + F₂) | O(F₁) | High (use Set) |
+| `calculateInfluenceScore` | O(V + P) | O(1) | Medium (hash map for user lookup) |
+| `findConnectionPath` | O(V + E) | O(V) | Medium (BFS is optimal) |
+| `recommendFriends` | O(V × F_avg + V × log(V)) | O(V) | High (use heap for top-K) |
+| `detectCommunities` | O(V² × F_avg) | O(V²) | Critical (consider Union-Find) |
 
 ---
 
-## Optimizations Considered
+## Scalability Considerations
 
-1. **`getTopSellingProducts`**: Can be optimized to O(n·m + p log n) using a min-heap of size N instead of sorting all products.
+For networks with **10,000+ users**:
 
-2. **`calculateRevenueByCategory`**: If products array is pre-processed into a map, lookup time reduces from O(p) to O(1), making overall complexity O(n·m + c log c).
-
-3. **All functions**: Using Map/Set data structures for O(1) lookups instead of arrays improves performance for lookups and deduplication.
+1. **Use hash-based data structures** for O(1) lookups
+2. **Preprocess adjacency lists** instead of scanning arrays
+3. **Limit depth** in path-finding algorithms
+4. **Use efficient sorting** (heap) for top-K recommendations
+5. **Consider approximate algorithms** for community detection on very large networks
