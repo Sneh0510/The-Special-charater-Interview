@@ -1,68 +1,63 @@
-# GitHub Classroom Assignment
+# GitHub Classroom Assignments for Final Year Students
 
-## Assignment 1: E-Commerce Data Analytics Dashboard
+## Assignment 2: Social Media Network Analyzer
+
+**Skills Tested:** Graph Algorithms, Object Manipulation, Recursion
+
+**Difficulty:** Hard
 
 ### Problem Statement
-Build a data processing system for an e-commerce platform that analyzes customer orders, products, and sales data.
+Create a social network analysis tool that processes user connections, posts, and interactions.
 
 ### Requirements
-Students must implement the following functions:
 
-1. **`getTopSellingProducts(orders, n)`**
-   - Return top N products by total quantity sold
-   - Handle ties appropriately
-   - Time complexity: O(n log n) or better
+1. **`findMutualFriends(userId1, userId2, network)`**
+   - Return array of user IDs who are friends with both users
+   - Optimize for large networks (10,000+ users)
 
-2. **`calculateRevenueByCategory(orders, products)`**
-   - Group revenue by product categories
-   - Return sorted object with category totals
-   - Include percentage of total revenue
+2. **`calculateInfluenceScore(userId, network)`**
+   - Score based on: followers count, engagement rate, friend connections
+   - Formula: (followers × 0.5) + (avgLikesPerPost × 0.3) + (mutualConnections × 0.2)
+   - Return normalized score (0-100)
 
-3. **`findCustomerSegments(customers, orders)`**
-   - Segment customers into: VIP (>$10k spent), Regular ($1k-$10k), New (<$1k)
-   - Return object with arrays of customer IDs per segment
-   - Calculate average order value per segment
+3. **`findConnectionPath(userId1, userId2, network, maxDepth)`**
+   - Find shortest connection path between two users
+   - Return array of user IDs representing the path
+   - Return null if no path exists within maxDepth
 
-4. **`getMonthlyTrends(orders, startDate, endDate)`**
-   - Aggregate orders by month within date range
-   - Return array of objects with month, revenue, order count
-   - Handle edge cases (no orders in a month)
+4. **`recommendFriends(userId, network, count)`**
+   - Suggest friends based on mutual connections
+   - Exclude existing friends and the user themselves
+   - Return top N recommendations with relevance scores
 
-5. **`mergeAndDeduplicateProducts(productsArray1, productsArray2)`**
-   - Merge two product catalogs
-   - Remove duplicates based on product ID
-   - Keep most recent data when conflicts exist
+5. **`detectCommunities(network, minSize)`**
+   - Identify closely connected groups of users
+   - Community = users with at least 50% connections within group
+   - Return array of arrays (each inner array is a community)
 
 ### Sample Data Structure
 ```javascript
-const orders = [
-  {
-    orderId: "ORD001",
-    customerId: "CUST123",
-    products: [
-      { productId: "P001", quantity: 2, price: 29.99 },
-      { productId: "P002", quantity: 1, price: 49.99 }
-    ],
-    orderDate: "2024-01-15",
-    totalAmount: 109.97
-  }
-];
-
-const products = [
-  {
-    productId: "P001",
-    name: "Wireless Mouse",
-    category: "Electronics",
-    price: 29.99
-  }
-];
+const network = {
+  users: [
+    {
+      userId: "U001",
+      name: "Alice",
+      friends: ["U002", "U003", "U004"],
+      followers: 1500,
+      posts: [
+        { postId: "P001", likes: 150, comments: 20 },
+        { postId: "P002", likes: 200, comments: 35 }
+      ]
+    }
+  ]
+};
 ```
 
 ### Evaluation Criteria
-- **Correctness:** 40% - All test cases pass
-- **Code Quality:** 25% - Clean, readable code with proper naming
-- **Efficiency:** 20% - Optimal time/space complexity
-- **Edge Cases:** 15% - Handles empty arrays, null values, invalid data
+- **Algorithm Correctness:** 35%
+- **Complexity Analysis:** 25% - Must include Big-O analysis in comments
+- **Code Organization:** 20% - Modular, reusable functions
+- **Testing:** 20% - Comprehensive unit tests provided
 
 ## General Submission Guidelines for All Assignments
 
