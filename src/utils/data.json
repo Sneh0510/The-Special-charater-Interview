@@ -1,0 +1,212 @@
+{
+  "users": [
+    {
+      "userId": "U001",
+      "name": "Alice",
+      "friends": ["U002", "U003", "U004", "U005"],
+      "followers": 1500,
+      "posts": [
+        { "postId": "P001", "likes": 150, "comments": 20 },
+        { "postId": "P002", "likes": 200, "comments": 35 },
+        { "postId": "P003", "likes": 180, "comments": 25 }
+      ]
+    },
+    {
+      "userId": "U002",
+      "name": "Bob",
+      "friends": ["U001", "U003", "U004", "U006", "U007"],
+      "followers": 2300,
+      "posts": [
+        { "postId": "P004", "likes": 320, "comments": 45 },
+        { "postId": "P005", "likes": 280, "comments": 38 }
+      ]
+    },
+    {
+      "userId": "U003",
+      "name": "Charlie",
+      "friends": ["U001", "U002", "U004", "U005", "U008"],
+      "followers": 850,
+      "posts": [
+        { "postId": "P006", "likes": 95, "comments": 12 },
+        { "postId": "P007", "likes": 110, "comments": 15 },
+        { "postId": "P008", "likes": 88, "comments": 10 }
+      ]
+    },
+    {
+      "userId": "U004",
+      "name": "Diana",
+      "friends": ["U001", "U002", "U003", "U005", "U009"],
+      "followers": 3200,
+      "posts": [
+        { "postId": "P009", "likes": 450, "comments": 65 },
+        { "postId": "P010", "likes": 520, "comments": 72 },
+        { "postId": "P011", "likes": 380, "comments": 55 }
+      ]
+    },
+    {
+      "userId": "U005",
+      "name": "Eve",
+      "friends": ["U001", "U003", "U004", "U006", "U010"],
+      "followers": 1800,
+      "posts": [
+        { "postId": "P012", "likes": 220, "comments": 30 },
+        { "postId": "P013", "likes": 195, "comments": 28 }
+      ]
+    },
+    {
+      "userId": "U006",
+      "name": "Frank",
+      "friends": ["U002", "U005", "U007", "U011", "U012"],
+      "followers": 1200,
+      "posts": [
+        { "postId": "P014", "likes": 140, "comments": 18 },
+        { "postId": "P015", "likes": 160, "comments": 22 },
+        { "postId": "P016", "likes": 130, "comments": 16 }
+      ]
+    },
+    {
+      "userId": "U007",
+      "name": "Grace",
+      "friends": ["U002", "U006", "U011", "U012", "U013"],
+      "followers": 950,
+      "posts": [
+        { "postId": "P017", "likes": 105, "comments": 14 },
+        { "postId": "P018", "likes": 98, "comments": 13 }
+      ]
+    },
+    {
+      "userId": "U008",
+      "name": "Henry",
+      "friends": ["U003", "U009", "U014", "U015"],
+      "followers": 2100,
+      "posts": [
+        { "postId": "P019", "likes": 290, "comments": 42 },
+        { "postId": "P020", "likes": 310, "comments": 48 },
+        { "postId": "P021", "likes": 275, "comments": 40 }
+      ]
+    },
+    {
+      "userId": "U009",
+      "name": "Ivy",
+      "friends": ["U004", "U008", "U014", "U015"],
+      "followers": 1650,
+      "posts": [
+        { "postId": "P022", "likes": 205, "comments": 32 },
+        { "postId": "P023", "likes": 190, "comments": 29 }
+      ]
+    },
+    {
+      "userId": "U010",
+      "name": "Jack",
+      "friends": ["U005", "U011", "U016"],
+      "followers": 750,
+      "posts": [
+        { "postId": "P024", "likes": 85, "comments": 11 },
+        { "postId": "P025", "likes": 92, "comments": 13 }
+      ]
+    },
+    {
+      "userId": "U011",
+      "name": "Kate",
+      "friends": ["U006", "U007", "U010", "U012", "U016"],
+      "followers": 1400,
+      "posts": [
+        { "postId": "P026", "likes": 170, "comments": 24 },
+        { "postId": "P027", "likes": 185, "comments": 26 },
+        { "postId": "P028", "likes": 155, "comments": 21 }
+      ]
+    },
+    {
+      "userId": "U012",
+      "name": "Liam",
+      "friends": ["U006", "U007", "U011", "U013", "U017"],
+      "followers": 1100,
+      "posts": [
+        { "postId": "P029", "likes": 125, "comments": 17 },
+        { "postId": "P030", "likes": 135, "comments": 19 }
+      ]
+    },
+    {
+      "userId": "U013",
+      "name": "Mia",
+      "friends": ["U007", "U012", "U017", "U018"],
+      "followers": 880,
+      "posts": [
+        { "postId": "P031", "likes": 100, "comments": 14 },
+        { "postId": "P032", "likes": 95, "comments": 12 }
+      ]
+    },
+    {
+      "userId": "U014",
+      "name": "Noah",
+      "friends": ["U008", "U009", "U015", "U019"],
+      "followers": 1950,
+      "posts": [
+        { "postId": "P033", "likes": 250, "comments": 36 },
+        { "postId": "P034", "likes": 235, "comments": 34 },
+        { "postId": "P035", "likes": 265, "comments": 38 }
+      ]
+    },
+    {
+      "userId": "U015",
+      "name": "Olivia",
+      "friends": ["U008", "U009", "U014", "U019", "U020"],
+      "followers": 2700,
+      "posts": [
+        { "postId": "P036", "likes": 380, "comments": 55 },
+        { "postId": "P037", "likes": 420, "comments": 62 },
+        { "postId": "P038", "likes": 395, "comments": 58 }
+      ]
+    },
+    {
+      "userId": "U016",
+      "name": "Paul",
+      "friends": ["U010", "U011", "U017"],
+      "followers": 620,
+      "posts": [
+        { "postId": "P039", "likes": 70, "comments": 9 },
+        { "postId": "P040", "likes": 65, "comments": 8 }
+      ]
+    },
+    {
+      "userId": "U017",
+      "name": "Quinn",
+      "friends": ["U012", "U013", "U016", "U018"],
+      "followers": 1020,
+      "posts": [
+        { "postId": "P041", "likes": 115, "comments": 16 },
+        { "postId": "P042", "likes": 120, "comments": 17 }
+      ]
+    },
+    {
+      "userId": "U018",
+      "name": "Ryan",
+      "friends": ["U013", "U017"],
+      "followers": 480,
+      "posts": [
+        { "postId": "P043", "likes": 55, "comments": 7 },
+        { "postId": "P044", "likes": 50, "comments": 6 }
+      ]
+    },
+    {
+      "userId": "U019",
+      "name": "Sophia",
+      "friends": ["U014", "U015", "U020"],
+      "followers": 1580,
+      "posts": [
+        { "postId": "P045", "likes": 195, "comments": 28 },
+        { "postId": "P046", "likes": 210, "comments": 31 }
+      ]
+    },
+    {
+      "userId": "U020",
+      "name": "Tom",
+      "friends": ["U015", "U019"],
+      "followers": 720,
+      "posts": [
+        { "postId": "P047", "likes": 80, "comments": 10 },
+        { "postId": "P048", "likes": 75, "comments": 9 }
+      ]
+    }
+  ]
+}
